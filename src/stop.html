@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符的介绍</title>
+    <script src="../lib/Vue2.5.21.js"></script>
+    <style>
+        .inner {
+            height: 150px;
+            background-color: skyblue;
+        }
+        .outer{
+            padding: 40px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--使用.stop组织冒泡-->
+    <div class="inner" @click="divClick">
+        <button @click.stop="btnClick">点击我</button>
+    </div>
+
+
+    <!--使用prevent阻止默认行为-->
+    <!--<a href="http://www.baidu.com" @click.prevent="linkClick">gotoBaidu</a>-->
+
+    <!--使用capture来开启捕获触发事件的机制-->
+    <!--<div class="inner" @click.capture="divClick">
+        <button @click="btnClick">点击我</button>
+    </div>-->
+
+    <!--使用self实现只有点击当前元素的时候,才会触发事件处理函数-->
+    <!--<div class="inner" @click.self="divClick">
+        <button @click="btnClick">点击我</button>
+    </div>-->
+
+    <!--使用once只触发一次处理函数-->
+    <!--<a href="http://www.baidu.com" @click.once.prevent="linkClick">gotoBaidu</a>-->
+
+    <!--stop和self的区别-->
+    <!--self只会阻止自己身上冒泡行为的触发,并不会组织真正的冒泡-->
+    <!--<div class="outer" @click="div2Click">
+        <div class="inner" @click.self="divClick">
+            <button @click="btnClick">点击我</button>
+        </div>
+    </div>-->
+
+</div>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {},
+        methods: {
+            divClick() {
+                alert("触发了innerdiv的点击事件")
+            },
+            btnClick() {
+                alert("触发了按钮的点击事件")
+            },
+            linkClick() {
+                alert("触发了链接的点击事件")
+            },
+            div2Click() {
+                alert("触发了outer的点击事件")
+            }
+        }
+    })
+</script>
+</body>
+</html>
